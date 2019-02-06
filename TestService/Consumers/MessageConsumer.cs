@@ -19,13 +19,12 @@ namespace TestSignalRService.Consumers
 			this.hubContext = hubContext;
 		}
 
-		public Task Consume(ConsumeContext<NotificationSendRequestMessage> context)
+		public async Task Consume(ConsumeContext<NotificationSendRequestMessage> context)
 		{
 			var message = $"{DateTime.Now.ToLongTimeString()} - Message consumed from the queue.  Context - {hubContext.GetHashCode()}.";
 			logger.LogInformation(message);
-			hubContext.Clients.All.SendAsync("Notify", message);
-			
-			return context.ConsumeCompleted;
+
+			await hubContext.Clients.All.SendAsync("Notify", message);
 		}
 	}
 }

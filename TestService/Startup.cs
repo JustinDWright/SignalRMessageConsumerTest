@@ -32,11 +32,7 @@ namespace TestSignalRService
 
 			services.AddHostedService<MessagingService>();
 
-			services.AddSignalR();
-
-			services.BuildServiceProvider()
-				.GetService<IBusControl>()
-				.Start();			
+			services.AddSignalR();			
 		}
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

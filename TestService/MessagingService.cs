@@ -14,10 +14,10 @@ namespace SignalRService
 	{
 		private readonly ILogger logger;
 		private Timer timer;
-		private readonly IBus bus;
+		private readonly IBusControl bus;
 		private readonly IHubContext<NotificationHub> hubContext;
 
-		public MessagingService(ILogger<MessagingService> logger, IBus bus, IHubContext<NotificationHub> hubContext)
+		public MessagingService(ILogger<MessagingService> logger, IBusControl bus, IHubContext<NotificationHub> hubContext)
 		{
 			this.logger = logger;
 			this.bus = bus;
@@ -26,6 +26,8 @@ namespace SignalRService
 
 		public Task StartAsync(CancellationToken cancellationToken)
 		{
+			bus.StartAsync();
+
 			logger.LogInformation("Notification Service is starting.");
 			timer = new Timer(AddNotificationMessage, null, TimeSpan.Zero, TimeSpan.FromSeconds(10));
 			return Task.CompletedTask;

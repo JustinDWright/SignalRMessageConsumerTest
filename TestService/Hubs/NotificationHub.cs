@@ -16,10 +16,9 @@ namespace TestSignalRService.Hubs
 
 		public override Task OnConnectedAsync()
 		{
-			var userName = Context.User.Identity.Name;
 			var connectionId = Context.ConnectionId;
 
-			logger.LogInformation($"Client {Context.ConnectionId} Connected.");
+			logger.LogInformation($"Client {connectionId} Connected.");
 			return base.OnConnectedAsync();
 		}
 
